@@ -19,8 +19,8 @@
         <script>
             function calc(g7tid, tsv){
                 var flg = false;
-                var g7tid = Number('993401');
-                var tsv = Number('3648');
+                var g7tid = Number(g7tid);
+                var tsv = Number(tsv);
                 var tid = Number();
                 var sid = Number();
                 var Result = "";
@@ -30,7 +30,6 @@
                 for(var i=0; i<4295; i++){
                     sid = Math.floor( (g7tid + 1000000*i) / 65536 );
                     tid = Math.floor( (g7tid + 1000000*i) - sid * 65536 );
-                    // document.write("tid:"+tid+", sid:"+sid+"<br>");
                     if(tsv == Math.floor( (tid ^ sid) / 16)){
                         flg = true;
                         trv = (tid ^ sid) % 16;
@@ -39,9 +38,9 @@
                 }
 
                 if(!flg){
-                    document.write("検索結果なし<br>");
+                    document.write("TRV not found<br>");
                 }
-                document.write("検索終了<br>");
+                document.write("Search end<br>");
 
             }
         </script>
