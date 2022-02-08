@@ -11,10 +11,42 @@
             TSV : 
             <input type="number" class="box" name="tsv">
             <br>
-            <input type="button" class="calc_button" onclick="calc(g7tid.value, tsv.value);" value="計算">
+            <input type="button" class="calc_button" onclick="calc(g7tid.value, tsv.value);" value="search">
             <br>
-            計算結果 : 
+            TID, SID, TRV : 
             <br>
+            <input id="lean" class="box" type="text" readonly="">
         </form>
+
+
+        <script>
+            function calc(g7tid, tsv){
+                // 検索開始
+                var flg = new Boolean(false);
+                var g7tid = 993401;
+                var tsv = 3648;
+                var trv;
+                var tid;
+                var sid;
+                var Result = "";
+                
+                for(var i=3647; i<3649; i++){
+                    sid = (g7tid + 1000000*i) / 65536;
+                    tid = (g7tid + 1000000*i) - sid * 65536;
+                    if(tsv == (tid ^ sid) / 16){
+                        flg = true;
+                        trv = (tid ^ sid) % 16;
+                        Result += trv;
+                        const lean_value = document.getElementById('lean').value = trv;
+                    }
+                }
+
+                if(!flg){
+                    const lean_value = document.getElementById('lean').value = "検索結果なし";
+                    // Result = "検索結果なし";
+                }
+
+            }
+        </script>
     </body>
 </html>
