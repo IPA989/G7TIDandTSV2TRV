@@ -13,38 +13,35 @@
             <br>
             <input type="button" class="calc_button" onclick="calc(g7tid.value, tsv.value);" value="search">
             <br>
-            TID, SID, TRV : 
-            <br>
-            <input id="lean" class="box" type="text" readonly="">
         </form>
 
 
         <script>
             function calc(g7tid, tsv){
-                // 検索開始
-                var flg = new Boolean(false);
-                var g7tid = 993401;
-                var tsv = 3648;
-                var trv;
-                var tid;
-                var sid;
+                var flg = false;
+                var g7tid = Number('993401');
+                var tsv = Number('3648');
+                var tid = Number();
+                var sid = Number();
                 var Result = "";
+
+                document.write("G7TID : "+g7tid+", TSV : "+tsv+"<br>");
                 
-                for(var i=3647; i<3649; i++){
-                    sid = (g7tid + 1000000*i) / 65536;
-                    tid = (g7tid + 1000000*i) - sid * 65536;
-                    if(tsv == (tid ^ sid) / 16){
+                for(var i=0; i<4295; i++){
+                    sid = Math.floor( (g7tid + 1000000*i) / 65536 );
+                    tid = Math.floor( (g7tid + 1000000*i) - sid * 65536 );
+                    // document.write("tid:"+tid+", sid:"+sid+"<br>");
+                    if(tsv == Math.floor( (tid ^ sid) / 16)){
                         flg = true;
                         trv = (tid ^ sid) % 16;
-                        Result += trv;
-                        const lean_value = document.getElementById('lean').value = trv;
+                        document.write("TRV :"+trv+", TID : "+tid+", SID : "+sid+"<br>");
                     }
                 }
 
                 if(!flg){
-                    const lean_value = document.getElementById('lean').value = "検索結果なし";
-                    // Result = "検索結果なし";
+                    document.write("検索結果なし<br>");
                 }
+                document.write("検索終了<br>");
 
             }
         </script>
