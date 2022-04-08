@@ -1,62 +1,69 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>G7TID/TSV->TRV</title>
-    <link rel="stylesheet" href="./trv.css" type="text/css" />
-  </head>
-  <body>
-    <main>
-      <form class="TRV_form">
-        <p>
-          <label for="g7tid">G7TID :</label>
-          <input type="number" class="box" name="g7tid" />
-        </p>
-        <p>
-          <label for="tsv"> TSV :</label>
-          <input type="number" class="box" name="tsv" />
-        </p>
-        <p>
-          <input
-            type="button"
-            class="calc_button"
-            onclick="calc(g7tid.value, tsv.value)"
-            value="search"
-          />
-        </p>
-        <p>
-          <textarea id="res_area" class="res_area"></textarea>
-        </p>
-      </form>
-    </main>
 
-    <script>
-      function calc(g7tid, tsv) {
-        const res_value = document.getElementById('res_area');
+<head>
+  <title>G7TID/TSV->TRV</title>
+  <link rel="stylesheet" href="./style.css" type="text/css" />
+  <meta name="viewport" content="width=device-width">
+</head>
 
-        var flg = false;
-        var g7tid = Number(g7tid);
-        var tsv = Number(tsv);
-        var tid = Number();
-        var sid = Number();
-        res_value.value = "G7TID : " + g7tid + ", TSV : " + tsv + "\n";
+<body>
+  <main>
+    <form class="TRV_form">
 
-        for (var i = 0; i < 4295; i++) {
-          sid = Math.floor((g7tid + 1000000 * i) / 65536);
-          tid = Math.floor(g7tid + 1000000 * i - sid * 65536);
-          if (tsv == Math.floor((tid ^ sid) / 16)) {
-            flg = true;
-            trv = (tid ^ sid) % 16;
-            // TRVが10以上の時アルファベットも出力
+      <table>
+      <tr>
+      <td><label for="g7tid">G7TID :</label></td>
+      <td><input type="number" class="box" name="g7tid" /></td>
+      </tr>
+      <tr>
+      <td><label for="tsv"> TSV :</label></td>
+      <td><input type="number" class="box" name="tsv" /></td>
+      </tr></table>
+
+      <p>
+        <input type="button" class="calc_button" onclick="calc(g7tid.value, tsv.value)" value="search" />
+      </p>
+      <p>
+        <textarea id="res_area" class="res_area"></textarea>
+      </p>
+    </form>
+  </main>
+
+  <script>
+    function calc(g7tid, tsv) {
+      const res_value = document.getElementById('res_area');
+
+      var flg = false;
+      var g7tid = Number(g7tid);
+      var tsv = Number(tsv);
+      var tid = Number();
+      var sid = Number();
+      res_value.value = "G7TID : " + g7tid + ", TSV : " + tsv + "\n";
+
+      for (var i = 0; i < 4295; i++) {
+        sid = Math.floor((g7tid + 1000000 * i) / 65536);
+        tid = Math.floor(g7tid + 1000000 * i - sid * 65536);
+        if (tsv == Math.floor((tid ^ sid) / 16)) {
+          flg = true;
+          trv = (tid ^ sid) % 16;
+          // TRVが10以上の時アルファベットも出力
+          if (trv >= 10){
+            res_value.value += "TRV :" + trv + "(" + trv.toString(16) + "), TID : " + tid + ", SID : " + sid + "\n";
+          }
+          else{
             res_value.value += "TRV :" + trv + ", TID : " + tid + ", SID : " + sid + "\n";
           }
         }
-
-        if (!flg) {
-          res_value.value += "TRV not found\n";
-        }
-        res_value.value += "Search end\n";
-        
       }
-    </script>
-  </body>
+
+      if (!flg) {
+        res_value.value += "TRV not found\n";
+      }
+      res_value.value += "Search end\n";
+
+    }
+  </script>
+</body>
+
 </html>
