@@ -9,4 +9,4 @@ G7TID/TSV to TRV
 https://ipa989.github.io/G7TID-TSV--TRV/
 
 
-参考 : http://pokemon-memo.blog.jp/archives/7596532.html
+参考 : [TRVの算出方法について](http://pokemon-memo.blog.jp/archives/7596532.html)
