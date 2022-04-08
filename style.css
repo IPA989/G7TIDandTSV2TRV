@@ -7,6 +7,9 @@ main {
   margin-bottom: 35px;
   padding: 10px 30px;
 }
+td {
+  padding: 8px;
+}
 .box {
   box-sizing: border-box;
   width: 150px ;
