@@ -1,4 +1,4 @@
-# G7TID-TSV--TRV
+# G7TIDandTSV2TRV
 
 For Pokemon 7gen and 8gen
 
